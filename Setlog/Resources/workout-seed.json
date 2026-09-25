@@ -1,0 +1,1199 @@
+{
+  "activeDay": 4,
+  "updatedAt": 0,
+  "days": [
+    {
+      "day": "Sunday",
+      "short": "SUN",
+      "title": "Rest day",
+      "focus": "Recovery",
+      "finished": false,
+      "notes": "",
+      "exercises": []
+    },
+    {
+      "day": "Monday",
+      "short": "MON",
+      "title": "Push Day",
+      "focus": "Chest, shoulders & triceps · strength + volume",
+      "finished": false,
+      "notes": "",
+      "exercises": [
+        {
+          "id": "mon-bench",
+          "name": "Barbell Bench Press",
+          "targetSets": "3",
+          "targetReps": "6–8",
+          "last": "20 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-incline",
+          "name": "Incline Dumbbell Press",
+          "targetSets": "4",
+          "targetReps": "6–8",
+          "last": "15 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-chest",
+          "name": "Chest Press",
+          "targetSets": "3",
+          "targetReps": "10–12",
+          "last": "45 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-shoulder",
+          "name": "Machine Shoulder Press",
+          "targetSets": "3",
+          "targetReps": "8–10",
+          "last": "40 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-lateral",
+          "name": "Cable Side Lateral Raise",
+          "targetSets": "4",
+          "targetReps": "12–20",
+          "last": "12 kg",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-extension",
+          "name": "Overhead Cable Extension",
+          "targetSets": "3",
+          "targetReps": "10–15",
+          "last": "36 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-pushdown",
+          "name": "Cable Triceps Pushdown",
+          "targetSets": "3",
+          "targetReps": "12–15",
+          "last": "36 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-dips",
+          "name": "Weighted Dips / Bodyweight",
+          "targetSets": "2–3",
+          "targetReps": "quality reps",
+          "last": "—",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "mon-walk",
+          "name": "Incline Walk",
+          "targetSets": "1",
+          "targetReps": "8–10 min",
+          "last": "—",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "short": "TUE",
+      "title": "Pull Day",
+      "focus": "Back thickness, width & biceps",
+      "finished": false,
+      "notes": "",
+      "exercises": [
+        {
+          "id": "tue-pullup",
+          "name": "Pull-Up",
+          "targetSets": "3",
+          "targetReps": "6–10",
+          "last": "Bodyweight",
+          "note": "Last time: 5 × 7",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-pulldown",
+          "name": "Lat Pulldown — Neutral / Close Grip",
+          "targetSets": "3",
+          "targetReps": "8–12",
+          "last": "60 kg",
+          "note": "Last time: 5 × 8",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-row",
+          "name": "Seated Cable Row",
+          "targetSets": "3",
+          "targetReps": "8–12",
+          "last": "51 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-rear",
+          "name": "Rear Delt Pec Fly",
+          "targetSets": "3",
+          "targetReps": "12–20",
+          "last": "50 kg",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-altcurl",
+          "name": "Alternating Dumbbell Curl",
+          "targetSets": "3",
+          "targetReps": "10–12",
+          "last": "10 kg",
+          "note": "Last time: 4 × 7",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-inclinecurl",
+          "name": "Incline Dumbbell Curl",
+          "targetSets": "3",
+          "targetReps": "12",
+          "last": "7.5 kg",
+          "note": "Last time: 5 × 8",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "tue-camber",
+          "name": "Camber Curl",
+          "targetSets": "4",
+          "targetReps": "8",
+          "last": "20 kg",
+          "note": "Last time: 4 × 7",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "short": "WED",
+      "title": "Leg Day",
+      "focus": "Quad-focused power & volume",
+      "finished": false,
+      "notes": "",
+      "exercises": [
+        {
+          "id": "wed-squat",
+          "name": "Barbell Back Squat",
+          "targetSets": "4",
+          "targetReps": "8–10",
+          "last": "30 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-curl",
+          "name": "Leg Curl Machine",
+          "targetSets": "4",
+          "targetReps": "12",
+          "last": "45 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-hack",
+          "name": "Hack Squat",
+          "targetSets": "4",
+          "targetReps": "8–10",
+          "last": "60 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-press",
+          "name": "Leg Press",
+          "targetSets": "4",
+          "targetReps": "12",
+          "last": "75 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-bulgarian",
+          "name": "Bulgarian Split Squat",
+          "targetSets": "3",
+          "targetReps": "15",
+          "last": "10 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-extension",
+          "name": "Leg Extension",
+          "targetSets": "3",
+          "targetReps": "15",
+          "last": "65 kg",
+          "note": "Last time: 4 × 12",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "wed-calf",
+          "name": "Standing Calf Raise",
+          "targetSets": "4",
+          "targetReps": "20",
+          "last": "60 kg each",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "short": "THU",
+      "title": "Core",
+      "focus": "Ab definition + fat-burning cardio",
+      "finished": false,
+      "notes": "",
+      "exercises": [
+        {
+          "id": "thu-legraise",
+          "name": "Hanging Leg Raise",
+          "targetSets": "3",
+          "targetReps": "15",
+          "last": "Bodyweight",
+          "note": "Last time: 6 × 12",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-crunch",
+          "name": "Cable Crunch",
+          "targetSets": "4",
+          "targetReps": "12–15",
+          "last": "60 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-russian",
+          "name": "Weighted Decline Russian Twist",
+          "targetSets": "4",
+          "targetReps": "15",
+          "last": "15 kg",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-situp",
+          "name": "Decline Sit-Up",
+          "targetSets": "4",
+          "targetReps": "10",
+          "last": "10 kg",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-rotation",
+          "name": "Torso Rotation Machine",
+          "targetSets": "4",
+          "targetReps": "10",
+          "last": "35 kg",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-lying",
+          "name": "Lying Leg Raises",
+          "targetSets": "3",
+          "targetReps": "10",
+          "last": "Bodyweight",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-plank",
+          "name": "Plank Hold",
+          "targetSets": "3",
+          "targetReps": "60 sec",
+          "last": "Bodyweight",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "thu-walk",
+          "name": "Incline Walk",
+          "targetSets": "1",
+          "targetReps": "15–20 min",
+          "last": "—",
+          "note": "Last time: 10 min",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": "Friday",
+      "short": "FRI",
+      "title": "Friday Training",
+      "focus": "Choose one plan for today",
+      "finished": false,
+      "notes": "",
+      "selectedPlan": "Glutes & Isolation",
+      "exercises": [
+        {
+          "id": "fri-hip",
+          "name": "Hip Thrust — Barbell / Machine",
+          "targetSets": "4",
+          "targetReps": "8–10",
+          "last": "50 kg",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-hack",
+          "name": "Hack Squat — Facing Pad",
+          "targetSets": "3",
+          "targetReps": "12",
+          "last": "50 kg",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-curl",
+          "name": "Leg Curl — Lying / Seated",
+          "targetSets": "3",
+          "targetReps": "12–15",
+          "last": "45 kg",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-sumo",
+          "name": "Dumbbell Sumo Squat",
+          "targetSets": "3",
+          "targetReps": "12",
+          "last": "17.5 kg",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-kick",
+          "name": "Cable Glute Kickback",
+          "targetSets": "3",
+          "targetReps": "15 / leg",
+          "last": "24 kg",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-abduction",
+          "name": "Abduction Machine",
+          "targetSets": "3",
+          "targetReps": "15–20",
+          "last": "50–35 kg",
+          "group": "Glutes & Isolation",
+          "note": "Last time: 4 × 10",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-walk",
+          "name": "Incline Walk — Optional",
+          "targetSets": "1",
+          "targetReps": "max 10 min",
+          "last": "—",
+          "group": "Glutes & Isolation",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-runwarm",
+          "name": "Warm-Up Walk",
+          "targetSets": "1",
+          "targetReps": "5–7 min",
+          "last": "10 min",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-run",
+          "name": "Run",
+          "targetSets": "1",
+          "targetReps": "30–35 min",
+          "last": "4 km",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-runkick",
+          "name": "Cable Glute Kickback",
+          "targetSets": "3",
+          "targetReps": "15 each",
+          "last": "24 kg",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-runabd",
+          "name": "Abduction Machine",
+          "targetSets": "3",
+          "targetReps": "15–20",
+          "last": "50–35 kg",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-runhip",
+          "name": "Hip Thrust",
+          "targetSets": "3",
+          "targetReps": "8–12",
+          "last": "40 kg",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-runcrunch",
+          "name": "Cable Crunch",
+          "targetSets": "3",
+          "targetReps": "12–15",
+          "last": "60 kg",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "fri-knee",
+          "name": "Hanging Knee Raise",
+          "targetSets": "3",
+          "targetReps": "10–15",
+          "last": "Bodyweight",
+          "group": "Run + Glutes + Abs",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "short": "SAT",
+      "title": "Rest day",
+      "focus": "Recovery",
+      "finished": false,
+      "notes": "",
+      "exercises": []
+    }
+  ]
+}
