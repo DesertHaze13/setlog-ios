@@ -1,12 +1,17 @@
 import Foundation
 import Combine
+#if os(iOS)
+import UIKit
+#endif
 
 @MainActor
 final class WorkoutStore: ObservableObject {
     #if os(macOS)
     private let deviceName = "Mac"
+    #elseif os(iOS)
+    private var deviceName: String { UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone" }
     #else
-    private let deviceName = "iPhone"
+    private let deviceName = "device"
     #endif
     @Published private(set) var state: WorkoutState
     @Published private(set) var syncLabel = "Saved locally"
@@ -14,11 +19,13 @@ final class WorkoutStore: ObservableObject {
     @Published private(set) var cloudConflict = false
     @Published private(set) var accountBusy = false
     @Published var message: String?
+    @Published private(set) var selectedWeekStart: String?
 
     private let localURL: URL
     private var cloudTask: Task<Void, Never>?
     private var cloudRecord: CloudRecord?
     private var pendingCloudSave = false
+    private var recordDate = Date()
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
@@ -38,72 +45,126 @@ final class WorkoutStore: ObservableObject {
             fatalError("The workout schedule is missing from the app bundle.")
         }
         state.activeDay = min(max(state.activeDay, 0), 6)
+        if !isFirstLaunch && state.weekStart != Self.currentWeekKey() {
+            backupLocal(named: "setlog-before-week-rollover")
+        }
+        Self.rollOver(&state)
+        selectedWeekStart = state.weekStart
+        recordDate = Self.dateForWeekday(state.activeDay)
         if isFirstLaunch { normalizeUnrecordedSets() }
         accountEmail = SharedCloud.storedSession()?.email
         persistLocal()
         Task { await refreshFromCloud() }
     }
 
-    var currentDay: WorkoutDay { state.days[state.activeDay] }
+    var visibleDays: [WorkoutDay] {
+        guard let selectedWeekStart, selectedWeekStart != state.weekStart else { return state.days }
+        return state.weekRecords[selectedWeekStart] ?? state.days.map(Self.freshDay)
+    }
+
+    var isViewingPastWeek: Bool { selectedWeekStart != nil && selectedWeekStart != state.weekStart }
+    var currentDay: WorkoutDay { visibleDays[state.activeDay] }
+    var selectedWeekDate: Date { Self.date(from: selectedWeekStart ?? state.weekStart ?? Self.currentWeekKey()) ?? Date() }
+
+    func selectWeek(containing date: Date) {
+        selectedWeekStart = Self.weekKey(for: date)
+        recordDate = Self.dateForWeekday(state.activeDay, in: selectedWeekDate)
+    }
+
+    func selectCurrentWeek() { selectWeek(containing: Date()) }
 
     func selectDay(_ index: Int) {
         guard state.days.indices.contains(index) else { return }
         state.activeDay = index
+        recordDate = Self.dateForWeekday(index, in: selectedWeekDate)
         persistLocal()
     }
 
+    func selectRecordDate(_ date: Date) { recordDate = date }
+
     func setPlan(_ plan: String) {
+        guard !isViewingPastWeek else { return }
         state.days[state.activeDay].selectedPlan = plan
-        changed()
+        changed(recordProgress: true)
     }
 
     func setFinished(_ finished: Bool) {
+        guard !isViewingPastWeek else { return }
         state.days[state.activeDay].finished = finished
-        changed()
+        changed(recordProgress: true)
     }
 
     func setNotes(_ notes: String) {
+        guard !isViewingPastWeek else { return }
         state.days[state.activeDay].notes = notes
         changed()
     }
 
     func setLast(_ value: String, exercise index: Int) {
+        guard !isViewingPastWeek else { return }
         guard validExercise(index) else { return }
         state.days[state.activeDay].exercises[index].last = value
         changed()
     }
 
     func setWeight(_ value: String, exercise index: Int, set setIndex: Int) {
+        guard !isViewingPastWeek else { return }
         guard validSet(index, setIndex) else { return }
         state.days[state.activeDay].exercises[index].sets[setIndex].weight = value
         changed()
     }
 
     func setReps(_ value: String, exercise index: Int, set setIndex: Int) {
+        guard !isViewingPastWeek else { return }
         guard validSet(index, setIndex) else { return }
         state.days[state.activeDay].exercises[index].sets[setIndex].reps = value
         changed()
     }
 
     func toggleSet(exercise index: Int, set setIndex: Int) {
+        guard !isViewingPastWeek else { return }
         guard validSet(index, setIndex) else { return }
         state.days[state.activeDay].exercises[index].sets[setIndex].done.toggle()
-        changed()
+        changed(recordProgress: true)
     }
 
     func addSet(exercise index: Int) {
+        guard !isViewingPastWeek else { return }
         guard validExercise(index) else { return }
         let item = state.days[state.activeDay].exercises[index]
         state.days[state.activeDay].exercises[index].sets.append(
             SetEntry(weight: item.last == "—" ? "" : item.last, reps: item.targetReps, done: false)
         )
-        changed()
+        changed(recordProgress: true)
     }
 
     func removeSet(exercise index: Int, set setIndex: Int) {
+        guard !isViewingPastWeek else { return }
         guard validSet(index, setIndex) else { return }
         state.days[state.activeDay].exercises[index].sets.remove(at: setIndex)
-        changed()
+        changed(recordProgress: true)
+    }
+
+    func addExercise(name: String, targetSets: Int, targetReps: String, last: String, note: String) {
+        guard !isViewingPastWeek else { return }
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        let count = min(max(targetSets, 1), 30)
+        let chosenPlan = state.days[state.activeDay].day == "Friday"
+            ? (state.days[state.activeDay].selectedPlan ?? "Glutes & Isolation") : nil
+        let exercise = Exercise(id: UUID().uuidString, name: trimmed, targetSets: String(count),
+                                targetReps: targetReps.isEmpty ? "10" : targetReps,
+                                last: last, note: note.isEmpty ? nil : note, group: chosenPlan,
+                                sets: (0..<count).map { _ in SetEntry(weight: last, reps: targetReps.isEmpty ? "10" : targetReps, done: false) })
+        state.days[state.activeDay].exercises.append(exercise)
+        changed(recordProgress: true)
+    }
+
+    func removeExercise(_ index: Int) {
+        guard !isViewingPastWeek else { return }
+        guard validExercise(index) else { return }
+        state.days[state.activeDay].exercises.remove(at: index)
+        changed(recordProgress: true)
     }
 
     func importWorkout(from url: URL) {
@@ -122,6 +183,8 @@ final class WorkoutStore: ObservableObject {
             if FileManager.default.fileExists(atPath: localURL.path) { try FileManager.default.copyItem(at: localURL, to: backup) }
             state = imported
             state.activeDay = min(max(state.activeDay, 0), 6)
+            Self.rollOver(&state)
+            selectedWeekStart = state.weekStart
             changed()
             message = "Imported all seven days, recorded sets, and notes. A backup of your previous local data was kept."
         } catch {
@@ -163,6 +226,8 @@ final class WorkoutStore: ObservableObject {
             let selectedDay = state.activeDay
             state = remote.state
             state.activeDay = selectedDay
+            Self.rollOver(&state)
+            selectedWeekStart = state.weekStart
             persistLocal()
             cloudRecord = remote
             cloudConflict = false
@@ -185,6 +250,7 @@ final class WorkoutStore: ObservableObject {
     }
 
     func refreshFromCloud() async {
+        let rolledLocally = rollOverCurrentWeek()
         guard let session = SharedCloud.storedSession() else {
             syncLabel = "Saved on \(deviceName) · sign in to sync"
             return
@@ -196,12 +262,19 @@ final class WorkoutStore: ObservableObject {
             if remote.updateTime != cloudRecord?.updateTime {
                 backupLocal(named: "setlog-before-remote-update")
                 let selectedDay = state.activeDay
-                state = remote.state
+                var merged = remote.state
+                merged.history.merge(state.history) { remote, _ in remote }
+                merged.weekRecords.merge(state.weekRecords, uniquingKeysWith: Self.moreCompleteArchive)
+                let archiveNeedsRepair = merged.weekRecords != remote.state.weekRecords
+                state = merged
                 state.activeDay = selectedDay
+                let rolledRemote = rollOverCurrentWeek()
                 persistLocal()
                 cloudRecord = remote
                 rememberSharedTimestamp(remote.state.updatedAt, uid: session.uid)
+                if rolledRemote || archiveNeedsRepair { scheduleCloudSave() }
             }
+            if rolledLocally { scheduleCloudSave() }
             syncLabel = "Saved on \(deviceName) and shared"
         } catch { syncLabel = "Saved on \(deviceName) · sync unavailable"; message = error.localizedDescription }
     }
@@ -217,14 +290,20 @@ final class WorkoutStore: ObservableObject {
         }
         backupLocal(named: "setlog-before-shared-sync")
         let selectedDay = state.activeDay
-        state = remote.state
+        var merged = remote.state
+        merged.history.merge(state.history) { remote, _ in remote }
+        merged.weekRecords.merge(state.weekRecords, uniquingKeysWith: Self.moreCompleteArchive)
+        let archiveNeedsRepair = merged.weekRecords != remote.state.weekRecords
+        state = merged
         state.activeDay = selectedDay
+        let rolledRemote = rollOverCurrentWeek()
         persistLocal()
         cloudRecord = remote
         cloudConflict = false
         pendingCloudSave = false
         rememberSharedTimestamp(remote.state.updatedAt, uid: session.uid)
         syncLabel = "Saved on \(deviceName) and shared"
+        if rolledRemote || archiveNeedsRepair { scheduleCloudSave() }
     }
 
     private func sharedTimestamp(uid: String) -> Double {
@@ -259,10 +338,95 @@ final class WorkoutStore: ObservableObject {
         }
     }
 
-    private func changed() {
+    private func changed(recordProgress: Bool = false) {
+        if recordProgress {
+            let day = state.days[state.activeDay]
+            let key = Self.dateKey(recordDate)
+            state.history[key] = WorkoutSnapshot(progress: day.progress, finished: day.isFinished,
+                                                  completedSets: day.visibleSets.filter(\.done).count,
+                                                  totalSets: day.visibleSets.count)
+        }
         state.updatedAt = Date().timeIntervalSince1970 * 1000
         persistLocal()
         if accountEmail != nil && !cloudConflict { scheduleCloudSave() }
+    }
+
+    private static func dateKey(_ date: Date) -> String {
+        let parts = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        return String(format: "%04d-%02d-%02d", parts.year ?? 0, parts.month ?? 0, parts.day ?? 0)
+    }
+
+    private static func dateForWeekday(_ index: Int, in week: Date = Date()) -> Date {
+        let calendar = Calendar.current
+        let monday = monday(for: week)
+        return calendar.date(byAdding: .day, value: (index + 6) % 7, to: monday) ?? week
+    }
+
+    private static func monday(for date: Date) -> Date {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        return calendar.dateInterval(of: .weekOfYear, for: date)?.start ?? calendar.startOfDay(for: date)
+    }
+
+    private static func weekKey(for date: Date) -> String { dateKey(monday(for: date)) }
+    private static func currentWeekKey() -> String { weekKey(for: Date()) }
+
+    private static func date(from key: String) -> Date? {
+        let pieces = key.split(separator: "-").compactMap { Int($0) }
+        guard pieces.count == 3 else { return nil }
+        return Calendar.current.date(from: DateComponents(year: pieces[0], month: pieces[1], day: pieces[2], hour: 12))
+    }
+
+    private static func freshDay(_ old: WorkoutDay) -> WorkoutDay {
+        var day = old
+        day.finished = false
+        day.notes = ""
+        for index in day.exercises.indices {
+            let prior = day.exercises[index]
+            if let latest = prior.sets.last(where: { $0.done && !$0.weight.isEmpty }) {
+                day.exercises[index].last = latest.weight
+            }
+            for setIndex in day.exercises[index].sets.indices {
+                day.exercises[index].sets[setIndex].done = false
+                day.exercises[index].sets[setIndex].weight = day.exercises[index].last == "—" ? "" : day.exercises[index].last
+            }
+        }
+        return day
+    }
+
+    private static func moreCompleteArchive(_ shared: [WorkoutDay], _ local: [WorkoutDay]) -> [WorkoutDay] {
+        let sharedCount = shared.flatMap { $0.exercises.flatMap(\.sets) }.filter(\.done).count
+        let localCount = local.flatMap { $0.exercises.flatMap(\.sets) }.filter(\.done).count
+        return sharedCount >= localCount ? shared : local
+    }
+
+    @discardableResult
+    private static func rollOver(_ state: inout WorkoutState) -> Bool {
+        let current = currentWeekKey()
+        if state.weekStart == nil {
+            // Legacy records have no week identity. Prefer their most recent dated workout;
+            // otherwise use the last edit date, so completed sets are archived before reset.
+            let recorded = state.history.keys.sorted().last.flatMap(date(from:))
+            let edited = Date(timeIntervalSince1970: state.updatedAt / 1000)
+            state.weekStart = weekKey(for: recorded ?? edited)
+        }
+        guard let old = state.weekStart, old < current else { return false }
+        state.weekRecords[old] = state.days
+        state.days = state.days.map(freshDay)
+        state.weekStart = current
+        state.updatedAt = Date().timeIntervalSince1970 * 1000
+        return true
+    }
+
+    @discardableResult
+    private func rollOverCurrentWeek() -> Bool {
+        let before = state
+        guard Self.rollOver(&state) else { return false }
+        backupLocal(named: "setlog-before-week-rollover")
+        if selectedWeekStart == nil || selectedWeekStart == before.weekStart { selectedWeekStart = state.weekStart }
+        recordDate = Self.dateForWeekday(state.activeDay)
+        persistLocal()
+        return true
     }
 
     private func persistLocal() {

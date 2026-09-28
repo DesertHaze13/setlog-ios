@@ -1,26 +1,69 @@
 {
-  "fill-specializations": [
-    { "value": { "automatic-gradient": "extended-srgb:0.94510,0.95686,0.96471,1.00000" } },
-    { "appearance": "dark", "value": { "automatic-gradient": "extended-srgb:0.07059,0.10196,0.12549,1.00000" } }
-  ],
-  "groups": [
+  "fill-specializations" : [
     {
-      "name": "Lift log artwork",
-      "lighting": "individual",
-      "layers": [
-        {
-          "name": "Barbell and log",
-          "image-name": "LiftLog-Light.svg",
-          "glass": true,
-          "hidden": false,
-          "opacity": 1,
-          "position": { "scale": 1, "translation-in-points": [0, 0] }
+      "value" : {
+        "linear-gradient" : [
+          "display-p3:0.90628,0.91729,0.63031,1.00000",
+          "extended-srgb:0.94510,0.95686,0.96471,1.00000"
+        ],
+        "orientation" : {
+          "start" : {
+            "x" : 0.5,
+            "y" : 1
+          },
+          "stop" : {
+            "x" : 0.5,
+            "y" : 0
+          }
         }
-      ],
-      "shadow": { "kind": "neutral", "opacity": 0.35 },
-      "specular": true,
-      "translucency": { "enabled": false, "value": 0 }
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : {
+        "automatic-gradient" : "extended-srgb:0.07059,0.10196,0.12549,1.00000"
+      }
     }
   ],
-  "supported-platforms": { "squares": ["iOS", "macOS"], "circles": ["watchOS"] }
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : "automatic",
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "LiftLog-Light.svg",
+          "name" : "Barbell and log",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "Lift log artwork",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.35
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : [
+      "iOS",
+      "macOS"
+    ]
+  }
 }

@@ -17,12 +17,12 @@
 		A00000000000000000000027 /* SharedCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000038 /* SharedCloud.swift */; };
 		A00000000000000000000028 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000039 /* GoogleService-Info.plist */; };
 		A00000000000000000000029 /* FitnessActivityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000040 /* FitnessActivityStore.swift */; };
-		A0000000000000000000002A /* DonyLifts.icon in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000042 /* DonyLifts.icon */; };
+		A0000000000000000000002A /* DonyLifts2026.icon in Resources */ = {isa = PBXBuildFile; fileRef = D00000000000000000000001 /* DonyLifts2026.icon */; };
 		B00000000000000000000001 /* WatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000002 /* WatchBridge.swift */; };
 		B00000000000000000000003 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* WatchApp.swift */; };
 		B00000000000000000000005 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000031 /* Models.swift */; };
 		B00000000000000000000006 /* DonyLiftsWatch.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B00000000000000000000007 /* DonyLiftsWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B00000000000000000000012 /* DonyLifts.icon in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000042 /* DonyLifts.icon */; };
+		B00000000000000000000012 /* DonyLifts2026.icon in Resources */ = {isa = PBXBuildFile; fileRef = D00000000000000000000001 /* DonyLifts2026.icon */; };
 		C00000000000000000000001 /* MacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000002 /* MacApp.swift */; };
 		C00000000000000000000003 /* MacContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000004 /* MacContentView.swift */; };
 		C00000000000000000000005 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000031 /* Models.swift */; };
@@ -30,7 +30,7 @@
 		C00000000000000000000007 /* SharedCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000038 /* SharedCloud.swift */; };
 		C00000000000000000000008 /* workout-seed.json in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000036 /* workout-seed.json */; };
 		C00000000000000000000009 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0000000000000000000000A /* GoogleService-Info.plist */; };
-		C00000000000000000000013 /* DonyLifts.icon in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000042 /* DonyLifts.icon */; };
+		C00000000000000000000013 /* DonyLifts2026.icon in Resources */ = {isa = PBXBuildFile; fileRef = D00000000000000000000001 /* DonyLifts2026.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +78,7 @@
 		C00000000000000000000004 /* MacContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacContentView.swift; sourceTree = "<group>"; };
 		C0000000000000000000000A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0000000000000000000000B /* DonyLiftsMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonyLiftsMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00000000000000000000001 /* DonyLifts2026.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = DonyLifts2026.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +128,7 @@
 				A00000000000000000000040 /* FitnessActivityStore.swift */,
 				A00000000000000000000041 /* Setlog-HealthKit.entitlements */,
 				A00000000000000000000042 /* DonyLifts.icon */,
+				D00000000000000000000001 /* DonyLifts2026.icon */,
 				B00000000000000000000002 /* WatchBridge.swift */,
 			);
 			path = Setlog;
@@ -252,7 +254,7 @@
 				A00000000000000000000025 /* workout-seed.json in Resources */,
 				A00000000000000000000026 /* Assets.xcassets in Resources */,
 				A00000000000000000000028 /* GoogleService-Info.plist in Resources */,
-				A0000000000000000000002A /* DonyLifts.icon in Resources */,
+				A0000000000000000000002A /* DonyLifts2026.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00000000000000000000012 /* DonyLifts.icon in Resources */,
+				B00000000000000000000012 /* DonyLifts2026.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +272,7 @@
 			files = (
 				C00000000000000000000008 /* workout-seed.json in Resources */,
 				C00000000000000000000009 /* GoogleService-Info.plist in Resources */,
-				C00000000000000000000013 /* DonyLifts.icon in Resources */,
+				C00000000000000000000013 /* DonyLifts2026.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,9 +353,10 @@
 		A00000000000000000000014 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_ENTITLEMENTS = "Setlog/Setlog-HealthKit.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -361,6 +364,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Setlog reads today's Apple Fitness activity rings to display Move, Exercise, and Stand progress on this iPhone.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Setlog uses your location to switch between light and dark mode at local sunrise and sunset.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.setyautama.setlog;
@@ -375,9 +381,10 @@
 		A00000000000000000000015 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_ENTITLEMENTS = "Setlog/Setlog-HealthKit.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -385,6 +392,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Setlog reads today's Apple Fitness activity rings to display Move, Exercise, and Stand progress on this iPhone.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Setlog uses your location to switch between light and dark mode at local sunrise and sunset.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.setyautama.setlog;
@@ -399,7 +409,7 @@
 		B00000000000000000000010 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;
@@ -420,7 +430,7 @@
 		B00000000000000000000011 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;
@@ -441,7 +451,7 @@
 		C00000000000000000000011 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;
@@ -460,7 +470,7 @@
 		C00000000000000000000012 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DonyLifts2026;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7388ZR99UP;

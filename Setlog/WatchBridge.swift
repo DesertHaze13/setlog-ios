@@ -41,13 +41,16 @@ final class WatchBridge: NSObject, ObservableObject, WCSessionDelegate {
     private func handle(_ command: [String: Any]) {
         Task { @MainActor in
             guard let store, !store.cloudConflict,
+                  let weekStart = command["weekStart"] as? String, weekStart == store.state.weekStart,
                   let day = command["day"] as? Int, store.state.days.indices.contains(day),
                   let exerciseID = command["exercise"] as? String,
                   let exercise = store.state.days[day].exercises.firstIndex(where: { $0.id == exerciseID }),
                   let action = command["action"] as? String else { return }
             let originalDay = store.state.activeDay
+            let originalWeek = store.selectedWeekDate
+            store.selectCurrentWeek()
             store.selectDay(day)
-            defer { store.selectDay(originalDay) }
+            defer { store.selectDay(originalDay); store.selectWeek(containing: originalWeek) }
             switch action {
             case "done":
                 guard let index = command["set"] as? Int,

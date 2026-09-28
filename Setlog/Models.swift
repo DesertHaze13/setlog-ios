@@ -46,10 +46,39 @@ struct WorkoutDay: Codable, Equatable {
     var isFinished: Bool { finished || progress >= 80 }
 }
 
+struct WorkoutSnapshot: Codable, Equatable {
+    var progress: Int
+    var finished: Bool
+    var completedSets: Int
+    var totalSets: Int
+}
+
 struct WorkoutState: Codable, Equatable {
     var activeDay: Int
     var days: [WorkoutDay]
     var updatedAt: Double
+    var history: [String: WorkoutSnapshot] = [:]
+    var weekStart: String? = nil
+    var weekRecords: [String: [WorkoutDay]] = [:]
+
+    enum CodingKeys: String, CodingKey { case activeDay, days, updatedAt, history, weekStart, weekRecords }
+
+    init(activeDay: Int, days: [WorkoutDay], updatedAt: Double, history: [String: WorkoutSnapshot] = [:]) {
+        self.activeDay = activeDay
+        self.days = days
+        self.updatedAt = updatedAt
+        self.history = history
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        activeDay = try values.decode(Int.self, forKey: .activeDay)
+        days = try values.decode([WorkoutDay].self, forKey: .days)
+        updatedAt = try values.decode(Double.self, forKey: .updatedAt)
+        history = try values.decodeIfPresent([String: WorkoutSnapshot].self, forKey: .history) ?? [:]
+        weekStart = try values.decodeIfPresent(String.self, forKey: .weekStart)
+        weekRecords = try values.decodeIfPresent([String: [WorkoutDay]].self, forKey: .weekRecords) ?? [:]
+    }
 
     var isValid: Bool {
         days.count == 7 && days.map(\.day) == ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]

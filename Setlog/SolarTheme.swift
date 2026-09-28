@@ -10,7 +10,7 @@ enum AppearanceMode: String {
 @MainActor
 final class SolarTheme: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published private(set) var dark: Bool?
-    @Published private(set) var label = "Following iPhone"
+    @Published private(set) var label = "Following device"
     @Published private(set) var mode: AppearanceMode
 
     private let manager = CLLocationManager()
@@ -31,7 +31,7 @@ final class SolarTheme: NSObject, ObservableObject, CLLocationManagerDelegate {
         UserDefaults.standard.set(newMode.rawValue, forKey: "setlog-appearance-mode")
         if newMode == .device {
             dark = nil
-            label = "Following iPhone"
+            label = "Following device"
         } else {
             requestLocation()
         }
@@ -73,7 +73,7 @@ final class SolarTheme: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func update() {
-        guard mode == .sun else { dark = nil; label = "Following iPhone"; return }
+        guard mode == .sun else { dark = nil; label = "Following device"; return }
         guard let coordinate,
               let sunrise = solarEvent(date: Date(), coordinate: coordinate, rising: true),
               let sunset = solarEvent(date: Date(), coordinate: coordinate, rising: false) else { return }
@@ -102,11 +102,11 @@ final class SolarTheme: NSObject, ObservableObject, CLLocationManagerDelegate {
         let hourAngle = (rising ? 360 - deg(acos(cosineHour)) : deg(acos(cosineHour))) / 15
         let localMean = hourAngle + rightAscension - 0.06571 * estimate - 6.622
         let utcHour = localMean - longitudeHour
-        var utc = Calendar(identifier: .gregorian)
-        utc.timeZone = TimeZone(secondsFromGMT: 0)!
-        let localComponents = calendar.dateComponents([.year, .month, .day], from: date)
-        guard let midnight = utc.date(from: localComponents) else { return nil }
-        return midnight.addingTimeInterval(utcHour * 3600)
+        // The NOAA hour can be negative or greater than 24. Convert it into the
+        // local clock before placing the event on the selected local day.
+        let localHour = utcHour + Double(TimeZone.current.secondsFromGMT(for: date)) / 3600
+        let clockHour = (localHour.truncatingRemainder(dividingBy: 24) + 24).truncatingRemainder(dividingBy: 24)
+        return calendar.startOfDay(for: date).addingTimeInterval(clockHour * 3600)
     }
 
     private func rad(_ degrees: Double) -> Double { degrees * .pi / 180 }

@@ -38,6 +38,8 @@ final class WatchWorkoutBridge: NSObject, ObservableObject, WCSessionDelegate {
 
     func perform(_ action: String, day: Int, exercise: String, set: Int? = nil, value: Any? = nil) {
         var command: [String: Any] = ["action": action, "day": day, "exercise": exercise]
+        guard let weekStart = state?.weekStart else { return }
+        command["weekStart"] = weekStart
         if let set { command["set"] = set }
         if let value { command["value"] = value }
         guard WCSession.default.activationState == .activated else { return }
@@ -53,13 +55,62 @@ final class WatchWorkoutBridge: NSObject, ObservableObject, WCSessionDelegate {
 
 private let liftGreen = Color(red: 0.62, green: 0.9, blue: 0.23)
 
+private struct WatchMotionButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        WatchTapButton(label: configuration.label, isPressed: configuration.isPressed)
+    }
+}
+
+private struct WatchBloomValues {
+    var scale = 0.84
+    var opacity = 0.0
+}
+
+private struct WatchTapButton<Label: View>: View {
+    let label: Label
+    let isPressed: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var bloomCount = 0
+
+    var body: some View {
+        label
+            .scaleEffect(reduceMotion ? 1 : isPressed ? 0.94 : 1)
+            .overlay {
+                if !reduceMotion {
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(liftGreen, lineWidth: 2)
+                        .keyframeAnimator(initialValue: WatchBloomValues(), trigger: bloomCount) { content, value in
+                            content.scaleEffect(value.scale).opacity(value.opacity)
+                        } keyframes: { _ in
+                            KeyframeTrack(\.scale) {
+                                LinearKeyframe(0.84, duration: 0.01)
+                                SpringKeyframe(1.1, duration: 0.42, spring: .smooth)
+                            }
+                            KeyframeTrack(\.opacity) {
+                                LinearKeyframe(0, duration: 0.01)
+                                CubicKeyframe(0.8, duration: 0.1)
+                                CubicKeyframe(0, duration: 0.32)
+                            }
+                        }
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true)
+                }
+            }
+            .animation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.56), value: isPressed)
+            .onChange(of: isPressed) { wasPressed, pressed in
+                if wasPressed && !pressed && !reduceMotion { bloomCount += 1 }
+            }
+    }
+}
+
 struct WatchHome: View {
     @EnvironmentObject private var bridge: WatchWorkoutBridge
     var body: some View {
         NavigationStack {
             Group {
                 if let state = bridge.state {
-                    List(Array(state.days.enumerated()), id: \.offset) { index, day in
+                    List([1, 2, 3, 4, 5, 6, 0], id: \.self) { index in
+                        let day = state.days[index]
                         NavigationLink {
                             WatchDay(dayIndex: index)
                         } label: {
@@ -69,10 +120,12 @@ struct WatchHome: View {
                                     Text(day.focus).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
                                 }
                                 Spacer()
-                                Text("\(day.progress)%")
-                                    .font(.caption.monospacedDigit())
+                                Label("\(day.progress)%", systemImage: day.isFinished ? "checkmark.circle.fill" : "circle.dashed")
+                                    .font(.caption2.monospacedDigit().weight(.bold))
                                     .foregroundStyle(day.isFinished ? liftGreen : .secondary)
+                                    .contentTransition(.numericText())
                             }
+                            .accessibilityLabel("\(day.day), \(day.isFinished ? "finished" : "not finished"), \(day.progress)% complete")
                         }
                     }
                 } else {
@@ -99,6 +152,7 @@ struct WatchDay: View {
                         Text("\(day.progress)% complete")
                             .font(.headline.monospacedDigit())
                             .foregroundStyle(day.isFinished ? liftGreen : .primary)
+                            .contentTransition(.numericText())
                     }
                     if day.day == "Friday" {
                         Section("Today's plan") {
@@ -164,7 +218,7 @@ struct WatchExercise: View {
                                     Text(entry.done ? "Done" : "Open").font(.caption)
                                 }
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(WatchMotionButtonStyle())
                             if unlocked {
                                 TextField("Load", text: Binding(
                                     get: { bridge.state?.days[dayIndex].exercises[exerciseIndex].sets[index].weight ?? "" },

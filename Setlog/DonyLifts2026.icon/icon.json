@@ -1,0 +1,146 @@
+{
+  "fill-specializations" : [
+    {
+      "value" : {
+        "linear-gradient" : [
+          "extended-srgb:0.95686,0.97647,0.94510,1.00000",
+          "extended-srgb:0.83137,0.90196,0.85490,1.00000"
+        ]
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : {
+        "linear-gradient" : [
+          "extended-srgb:0.11765,0.18824,0.15294,1.00000",
+          "extended-srgb:0.05490,0.10196,0.08235,1.00000"
+        ]
+      }
+    }
+  ],
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "value" : "automatic"
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-srgb:0.85098,1.00000,0.75686,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : "automatic"
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Barbell.svg",
+          "name" : "Barbell",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "fill-specializations" : [
+            {
+              "value" : "automatic"
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-srgb:0.06275,0.12549,0.08627,1.00000"
+              }
+            }
+          ],
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "Check.svg",
+          "name" : "Checkmark",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "fill-specializations" : [
+            {
+              "value" : "automatic"
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-srgb:0.64706,0.80000,0.69804,1.00000"
+              }
+            }
+          ],
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "Badge.svg",
+          "name" : "Completion badge",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "Spark.svg",
+          "name" : "Spark",
+          "opacity" : 0.58,
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "Playful lift mark",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.18
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : [
+      "iOS",
+      "macOS"
+    ]
+  }
+}
