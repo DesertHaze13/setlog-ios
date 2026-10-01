@@ -69,7 +69,9 @@ final class FitnessActivityStore: ObservableObject {
             guard self.queriedDay == date else { return }
             self.summary = latest
             self.status = errorText.map { "Fitness could not load: \($0)" }
-                ?? (latest == nil ? "No Fitness rings for this date. Check Health permissions and watch data." : "Apple Fitness")
+                ?? (latest == nil
+                    ? "No rings for this date. In Health, check Dony’s Lifts can read Activity and that Fitness has a record."
+                    : "Apple Fitness")
         }
     }
 }

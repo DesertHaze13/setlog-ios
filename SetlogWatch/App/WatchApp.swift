@@ -116,7 +116,13 @@ struct WatchHome: View {
                         } label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(day.day).font(.headline)
+                                    HStack(spacing: 4) {
+                                        Text(day.day).font(.headline)
+                                        if index == Calendar.current.component(.weekday, from: Date()) - 1 {
+                                            Text("TODAY").font(.system(size: 8, weight: .black))
+                                                .foregroundStyle(liftGreen)
+                                        }
+                                    }
                                     Text(day.focus).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
                                 }
                                 Spacer()

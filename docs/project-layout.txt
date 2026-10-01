@@ -1,0 +1,25 @@
+App/
+    SetlogApp.swift
+    MacApp.swift
+    WatchApp.swift
+    WatchBridge.swift
+    SolarTheme.swift (if exists)
+Models/
+    Models.swift
+Stores/
+    WorkoutStore.swift
+    FitnessActivityStore.swift
+    SharedCloud.swift
+Views/
+    ContentView.swift
+    MacContentView.swift
+    WatchHome.swift
+    Components/
+        AmbientLiftGlow.swift
+        Card.swift
+        Button.swift
+        Calendar.swift
+        ... (all other view component files)
+SupportingFiles/
+    Info.plist
+    GoogleService-Info.plist

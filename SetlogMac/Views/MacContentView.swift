@@ -118,7 +118,13 @@ struct MacContentView: View {
                     let item = store.visibleDays[index]
                     HStack {
                         VStack(alignment: .leading, spacing: 3) {
-                            Text(item.day).font(.headline)
+                            HStack(spacing: 6) {
+                                Text(item.day).font(.headline)
+                                if !store.isViewingPastWeek && index == Calendar.current.component(.weekday, from: Date()) - 1 {
+                                    Text("TODAY").font(.system(size: 9, weight: .black))
+                                        .foregroundStyle(gymGreen)
+                                }
+                            }
                             Text(item.focus).font(.caption).foregroundStyle(.secondary).lineLimit(1)
                         }
                         Spacer()
@@ -147,7 +153,8 @@ struct MacContentView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(day.day.uppercased()).font(.caption.weight(.bold)).foregroundStyle(gymGreen)
+                            Text(day.day.uppercased() + (!store.isViewingPastWeek && store.state.activeDay == Calendar.current.component(.weekday, from: Date()) - 1 ? " · TODAY" : ""))
+                                .font(.caption.weight(.bold)).foregroundStyle(gymGreen)
                             Text(day.title).font(.largeTitle.bold())
                             Text(day.focus).foregroundStyle(.secondary)
                         }

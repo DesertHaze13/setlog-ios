@@ -257,6 +257,16 @@ final class WorkoutStore: ObservableObject {
         }
         do {
             if cloudRecord == nil { try await connect(session); return }
+            if cloudConflict {
+                guard let remote = try await SharedCloud.read(session) else { throw CloudFailure.missingRecord }
+                if Self.hasSameWorkoutContent(state, remote.state) {
+                    cloudRecord = remote
+                    cloudConflict = false
+                    rememberSharedTimestamp(remote.state.updatedAt, uid: session.uid)
+                    syncLabel = "Saved on \(deviceName) and shared"
+                }
+                return
+            }
             guard !pendingCloudSave && cloudTask == nil && !cloudConflict else { return }
             guard let remote = try await SharedCloud.read(session) else { throw CloudFailure.missingRecord }
             if remote.updateTime != cloudRecord?.updateTime {
@@ -282,7 +292,7 @@ final class WorkoutStore: ObservableObject {
     private func connect(_ session: CloudSession) async throws {
         guard let remote = try await SharedCloud.read(session) else { throw CloudFailure.missingRecord }
         accountEmail = session.email
-        if state.updatedAt > sharedTimestamp(uid: session.uid) && sharedTimestamp(uid: session.uid) > 0 && state != remote.state {
+        if state.updatedAt > sharedTimestamp(uid: session.uid) && sharedTimestamp(uid: session.uid) > 0 && !Self.hasSameWorkoutContent(state, remote.state) {
             cloudRecord = remote
             cloudConflict = true
             syncLabel = "Saved on \(deviceName) · choose which copy to keep"
@@ -312,6 +322,13 @@ final class WorkoutStore: ObservableObject {
 
     private func rememberSharedTimestamp(_ timestamp: Double, uid: String) {
         UserDefaults.standard.set(timestamp, forKey: "setlog-last-shared-\(uid)")
+    }
+
+    private static func hasSameWorkoutContent(_ local: WorkoutState, _ shared: WorkoutState) -> Bool {
+        local.days == shared.days &&
+        local.history == shared.history &&
+        local.weekStart == shared.weekStart &&
+        local.weekRecords == shared.weekRecords
     }
 
     private func backupLocal(named name: String) {

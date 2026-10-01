@@ -35,6 +35,9 @@ struct ContentView: View {
     private var card: Color { colorScheme == .dark ? Color(.secondarySystemBackground) : .white }
     private var surface: Color { colorScheme == .dark ? .black : Color(.systemGroupedBackground) }
     private let weekOrder = [1, 2, 3, 4, 5, 6, 0]
+    private func isToday(_ index: Int) -> Bool {
+        !store.isViewingPastWeek && index == Calendar.current.component(.weekday, from: Date()) - 1
+    }
     private var fitnessDateLabel: String {
         Calendar.current.isDateInToday(fitnessDate) ? "Today" : fitnessDate.formatted(.dateTime.month(.abbreviated).day())
     }
@@ -58,7 +61,7 @@ struct ContentView: View {
             GeometryReader { geometry in
                 ScrollView {
                     if geometry.size.width >= 720 {
-                        iPadDashboard(width: geometry.size.width)
+                        iPadDashboard
                             .padding(.horizontal, 24)
                             .padding(.bottom, 44)
                             .frame(maxWidth: 1500)
@@ -109,7 +112,7 @@ struct ContentView: View {
             }
         }
         .onChange(of: scenePhase) { _, value in
-            if value == .active { Task { await store.refreshFromCloud(); theme.update(); fitness.refreshIfNeeded() } }
+            if value == .active { Task { await store.refreshFromCloud(); theme.update(); fitness.refreshIfNeeded(force: true) } }
         }
         .onReceive(Timer.publish(every: 4, on: .main, in: .common).autoconnect()) { _ in
             Task { await store.refreshFromCloud() }
@@ -145,9 +148,8 @@ struct ContentView: View {
         }
     }
 
-    private func iPadDashboard(width: CGFloat) -> some View {
-        let columnCount = width >= 1050 ? 3 : 2
-        let columns = Array(repeating: GridItem(.flexible(), spacing: 18, alignment: .top), count: columnCount)
+    private var iPadDashboard: some View {
+        let columns = [GridItem(.adaptive(minimum: 310, maximum: 520), spacing: 18, alignment: .top)]
         return VStack(alignment: .leading, spacing: 18) {
             header
                 .padding(.leading, 96)
@@ -191,7 +193,7 @@ struct ContentView: View {
                             Text(item.short.uppercased())
                                 .font(.caption2.weight(.heavy)).tracking(0.5)
                             Spacer()
-                            if !store.isViewingPastWeek && index == Calendar.current.component(.weekday, from: Date()) - 1 {
+                            if isToday(index) {
                                 Text("TODAY").font(.system(size: 9, weight: .black))
                             }
                         }
@@ -252,7 +254,7 @@ struct ContentView: View {
     private var hero: some View {
         HStack(alignment: .center, spacing: 8) {
             VStack(alignment: .leading, spacing: 7) {
-                Text(day.day + (store.state.activeDay == Calendar.current.component(.weekday, from: Date()) - 1 ? " · Today" : ""))
+                Text(day.day + (isToday(store.state.activeDay) ? " · Today" : ""))
                     .font(.subheadline.weight(.bold)).foregroundStyle(.secondary)
                 Text(day.title)
                     .font(.system(size: 44, weight: .black, design: .rounded))
@@ -307,10 +309,14 @@ struct ContentView: View {
           HStack {
             Text("Activity date").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
             Spacer()
-            if fitness.summary == nil {
-                Button(fitness.hasRequestedAccess ? "Refresh" : "Connect") { Task { await fitness.connect() } }
-                    .font(.caption.weight(.bold))
+            Button(fitness.hasRequestedAccess ? "Refresh" : "Connect") {
+                if fitness.hasRequestedAccess {
+                    fitness.refreshIfNeeded(force: true)
+                } else {
+                    Task { await fitness.connect() }
+                }
             }
+            .font(.caption.weight(.bold))
             DatePicker("Fitness date", selection: $fitnessDate, in: ...Date(), displayedComponents: .date)
                 .labelsHidden().datePickerStyle(.compact).frame(maxWidth: 108)
                 .onChange(of: fitnessDate) { _, date in fitness.selectDate(date) }
@@ -326,17 +332,22 @@ struct ContentView: View {
                 ForEach(weekOrder, id: \.self) { index in
                 let item = store.visibleDays[index]
                     Button { selectScheduleDay(index) } label: {
-                        VStack(spacing: 4) {
+                        VStack(spacing: 3) {
                             Text(item.short.uppercased())
                                 .font(.system(size: 11, weight: .black)).tracking(0.1)
                             Image(systemName: item.isFinished ? "checkmark.circle.fill" : "circle.dashed")
                                 .font(.system(size: 20, weight: .bold))
-                            Text(item.isFinished ? "DONE" : !store.isViewingPastWeek && index == Calendar.current.component(.weekday, from: Date()) - 1 ? "TODAY" : "\(item.progress)%")
+                            Text(item.isFinished ? "DONE" : "\(item.progress)%")
                                 .font(.system(size: 9, weight: .heavy))
                                 .lineLimit(1).minimumScaleFactor(0.8)
+                            if isToday(index) {
+                                Text("TODAY")
+                                    .font(.system(size: 8, weight: .black))
+                                    .foregroundStyle(colorScheme == .dark ? GymColor.green : Color(red: 0.24, green: 0.48, blue: 0.03))
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 71)
+                        .frame(height: 79)
                         .background(item.isFinished ? GymColor.green.opacity(colorScheme == .dark ? 0.28 : 0.38) : card,
                                     in: RoundedRectangle(cornerRadius: 13))
                         .overlay(RoundedRectangle(cornerRadius: 13)
